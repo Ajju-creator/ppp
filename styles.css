@@ -1,0 +1,329 @@
+/* ========================================
+   CSS Variables & Base Styles
+   ======================================== */
+:root {
+  /* Dark Theme Colors */
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --bg-card: #1e293b;
+  --text-primary: #f1f5f9;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  --accent: #06b6d4;
+  --accent-hover: #0891b2;
+  --accent-glow: rgba(6, 182, 212, 0.3);
+  --gradient-from: #06b6d4;
+  --gradient-to: #3b82f6;
+  --border-color: rgba(255, 255, 255, 0.1);
+  --shadow: rgba(0, 0, 0, 0.4);
+  --shadow-lg: rgba(0, 0, 0, 0.6);
+  
+  /* Light Theme Colors */
+  --light-bg-primary: #ffffff;
+  --light-bg-secondary: #f8fafc;
+  --light-bg-card: #ffffff;
+  --light-text-primary: #0f172a;
+  --light-text-secondary: #334155;
+  --light-text-muted: #64748b;
+  --light-border-color: rgba(0, 0, 0, 0.1);
+  --light-shadow: rgba(0, 0, 0, 0.1);
+  --light-shadow-lg: rgba(0, 0, 0, 0.15);
+  
+  /* Spacing */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 1.5rem;
+  --spacing-lg: 2rem;
+  --spacing-xl: 3rem;
+  --spacing-2xl: 4rem;
+  
+  /* Animation */
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Light Theme Override */
+[data-theme="light"] {
+  --bg-primary: var(--light-bg-primary);
+  --bg-secondary: var(--light-bg-secondary);
+  --bg-card: var(--light-bg-card);
+  --text-primary: var(--light-text-primary);
+  --text-secondary: var(--light-text-secondary);
+  --text-muted: var(--light-text-muted);
+  --border-color: var(--light-border-color);
+  --shadow: var(--light-shadow);
+  --shadow-lg: var(--light-shadow-lg);
+}
+
+/* ========================================
+   Reset & Base
+   ======================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  background: linear-gradient(135deg, var(--bg-primary) 0%, #1a202c 100%);
+  color: var(--text-primary);
+  line-height: 1.6;
+  overflow-x: hidden;
+  transition: var(--transition-slow);
+}
+
+/* ========================================
+   Loading Screen
+   ======================================== */
+.loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--bg-primary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  transition: opacity 0.5s, visibility 0.5s;
+}
+
+.loader.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.loader-spinner {
+  width: 50px;
+  height: 50px;
+  border: 3px solid var(--border-color);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ========================================
+   Scroll to Top Button
+   ======================================== */
+.scroll-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 48px;
+  height: 48px;
+  background: var(--accent);
+  color: var(--bg-primary);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: var(--transition);
+  z-index: 999;
+  box-shadow: 0 4px 12px var(--accent-glow);
+}
+
+.scroll-top.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.scroll-top:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 20px var(--accent-glow);
+}
+
+/* ========================================
+   Navigation
+   ======================================== */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: rgba(15, 23, 42, 0.8);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border-color);
+  transition: var(--transition);
+}
+
+.header.scrolled {
+  background: rgba(15, 23, 42, 0.95);
+  box-shadow: 0 4px 6px var(--shadow);
+}
+
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  text-decoration: none;
+}
+
+.logo-icon {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, var(--gradient-from), var(--gradient-to));
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: white;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 2rem;
+  align-items: center;
+}
+
+.nav-link {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-weight: 500;
+  transition: var(--transition);
+  position: relative;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--accent);
+  transition: var(--transition);
+}
+
+.nav-link:hover {
+  color: var(--accent);
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* Theme Toggle */
+.theme-toggle {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+  margin-left: 1rem;
+}
+
+.theme-toggle:hover {
+  background: var(--accent);
+  color: white;
+  transform: rotate(15deg);
+}
+
+[data-theme="dark"] .sun-icon {
+  display: block;
+}
+
+[data-theme="dark"] .moon-icon {
+  display: none;
+}
+
+[data-theme="light"] .sun-icon {
+  display: none;
+}
+
+[data-theme="light"] .moon-icon {
+  display: block;
+}
+
+/* Mobile Menu Toggle */
+.mobile-menu-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+}
+
+.mobile-menu-toggle span {
+  width: 24px;
+  height: 2px;
+  background: var(--text-primary);
+  transition: var(--transition);
+}
+
+/* Progress Bar */
+.progress-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--gradient-from), var(--gradient-to));
+  width: 0%;
+  transition: width 0.1s;
+}
+
+/* ========================================
+   Hero Section
+   ======================================== */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 8rem 2rem 4rem;
+  overflow: hidden;
+}
+
+.hero-content {
+  max-width: 1200px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-text {
+  animation: fadeInUp 0.8s ease-out;
+}
+
+/* ...rest of CSS truncated for backup to keep patch concise... */
